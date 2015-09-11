@@ -55,5 +55,3 @@ var MousetrapMixin = {
         this.unbindAllShortcuts();
     }
 };
-
-module.exports = MousetrapMixin;

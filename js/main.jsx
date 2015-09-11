@@ -1,22 +1,30 @@
 /** @jsx React.DOM */
 
 var pianoKeys = [
-  {color: "white", keyboard: "A", note: "C"},
-  {color: "black", keyboard: "W", note: "C#"},
-  {color: "white", keyboard: "S", note: "D"},
-  {color: "black", keyboard: "E", note: "Eb"},
-  {color: "white", keyboard: "D", note: "E"},
-  {color: "white", keyboard: "F", note: "F"},
-  {color: "black", keyboard: "T", note: "F#"},
-  {color: "white", keyboard: "J", note: "G"},
-  {color: "black", keyboard: "I", note: "Ab"},
-  {color: "white", keyboard: "K", note: "A"},
-  {color: "black", keyboard: "O", note: "Bb"},
-  {color: "white", keyboard: "L", note: "B"},
+  {color: "white", keyboard: "a", note: "C"},
+  {color: "black", keyboard: "w", note: "C#"},
+  {color: "white", keyboard: "s", note: "D"},
+  {color: "black", keyboard: "e", note: "Eb"},
+  {color: "white", keyboard: "d", note: "E"},
+  {color: "white", keyboard: "f", note: "F"},
+  {color: "black", keyboard: "t", note: "F#"},
+  {color: "white", keyboard: "j", note: "G"},
+  {color: "black", keyboard: "i", note: "Ab"},
+  {color: "white", keyboard: "k", note: "A"},
+  {color: "black", keyboard: "o", note: "Bb"},
+  {color: "white", keyboard: "l", note: "B"},
   {color: "white", keyboard: ";", note: "C2"}
 ];
 
 var Piano = React.createClass({
+  mixins: [MousetrapMixin],
+  componentDidMount: function () {
+
+    this.props.pianoKeys.forEach(function(pianoKey){
+      var keyEvent = pianoKey.keyboard
+      this.bindShortcut(keyEvent, function () { console.log("in") });
+    }, this)
+  },
   render: function() {
     var wkeys=[];
     var bkeys=[];
