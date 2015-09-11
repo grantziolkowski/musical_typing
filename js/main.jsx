@@ -20,11 +20,14 @@ var Piano = React.createClass({
   mixins: [MousetrapMixin],
   componentDidMount: function () {
     this.props.pianoKeys.forEach(function(pianoKey){
-      var keyEvent = pianoKey.keyboard;
-      this.bindShortcut(keyEvent, function () {
-          //set State // play audio
-       });
+      var keyEvent = pianoKey.keyboard
+      var note = pianoKey.note;
+      this.bindShortcut(keyEvent, this.playAudio)
     }, this)
+  },
+  playAudio: function(note) {
+    var v = document.getElementById(note)
+    console.log(v)
   },
   render: function() {
     var wkeys=[];
@@ -50,26 +53,37 @@ var Piano = React.createClass({
 })
 
 var Key = React.createClass({
-  getInitialState: function() {
-    var src = 'http://pianosounds.pixelass.com/tones/grand-piano/2' + this.props.note + '.ogg'
-    return {
-      audio: new Audio(src)
-    }
+  play: function() {
+    var playing = React.findDOMNode(this.refs.audio);
+    playing.play();
   },
   render: function() {
     var cx = 'key ' + this.props.color;
     return (
-      <div id={this.props.note} className={cx}>
+      <div id={this.props.note} className={cx} onClick={this.play}>
         <div className="keyname">{this.props.note}
         </div>
 
         <div className="kbkeyname">{this.props.keyboard}
         </div>
 
+        <Audio id={this.props.note} ref="audio"/>
       </div>
       )
   }
 })
 
+var Audio = React.createClass({
+  render: function() {
+    var linkOgg = "http://pianosounds.pixelass.com/tones/grand-piano/2" + this.props.id + ".ogg";
+    var linkMp3 = "http://pianosounds.pixelass.com/tones/grand-piano/2" + this.props.id + ".mp3";
+    return (
+      <audio id={this.props.id} preload="auto" controls>
+        <source src={linkOgg} type="audio/ogg"></source>
+        <source src={linkMp3} type="audio/mpeg"></source>
+      </audio>
+    )
+  }
+})
 
 React.render(<Piano pianoKeys={pianoKeys} />, document.getElementById('piano'))
