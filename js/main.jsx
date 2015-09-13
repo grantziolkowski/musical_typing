@@ -18,33 +18,54 @@ var pianoKeys = [
 
 var Piano = React.createClass({
   mixins: [MousetrapMixin],
+  getInitialState: function() {
+    return {
+      typedText: '',
+      audioCurrent: null,
+      isPlaying: false
+    }
+  },
   componentDidMount: function () {
     this.props.pianoKeys.forEach(function(pianoKey){
       var keyEvent = pianoKey.keyboard
       var note = pianoKey.note;
-      this.bindShortcut(keyEvent, this.playAudio)
+      var self = this
+      this.bindShortcut(keyEvent, function() {
+        self.toggle(note)
+        })
     }, this)
   },
-  playAudio: function(note) {
-    var v = document.getElementById(note)
-    console.log(v)
+  toggle: function(note) {
+    this.setState({
+      typedText: this.state.typedText + ' ' + note,
+      audioCurrent: document.getElementById(note),
+      isPlaying: !this.state.isPlaying
+    })
+    this.state.audioCurrent.play()
   },
   render: function() {
     var wkeys=[];
     var bkeys=[];
     this.props.pianoKeys.forEach(function(pianoKey, index){
       if (pianoKey.color == "black") {
-        bkeys.push(<Key note={pianoKey.note} color={pianoKey.color} keyboard={pianoKey.keyboard} />)
+        bkeys.push(<Key note={pianoKey.note} color={pianoKey.color} keyboard={pianoKey.keyboard} onPlay={this.toggle}/>)
       } else {
-        wkeys.push(<Key note={pianoKey.note} color={pianoKey.color} keyboard={pianoKey.keyboard} />)
+        wkeys.push(<Key note={pianoKey.note} color={pianoKey.color} keyboard={pianoKey.keyboard} onPlay={this.toggle}/>)
       }
     });
     return (
-     <div id="pianoBody">
-        <div className="octave">
-          {wkeys}
-          <div className="flats">
-            {bkeys}
+      <div>
+      <div id="typedText">
+        {this.state.typedText}
+      </div>
+      <div id="piano">
+         <div id="pianoBody">
+            <div className="octave">
+              {wkeys}
+              <div className="flats">
+                {bkeys}
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -54,13 +75,13 @@ var Piano = React.createClass({
 
 var Key = React.createClass({
   play: function() {
-    var playing = React.findDOMNode(this.refs.audio);
-    playing.play();
+    var audio = React.findDOMNode(this.refs.audio)
+    audio.play();
   },
   render: function() {
     var cx = 'key ' + this.props.color;
     return (
-      <div id={this.props.note} className={cx} onClick={this.play}>
+      <div className={cx} onClick={this.play}>
         <div className="keyname">{this.props.note}
         </div>
 
