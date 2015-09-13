@@ -107,4 +107,4 @@ var Audio = React.createClass({
   }
 })
 
-React.render(<Piano pianoKeys={pianoKeys} />, document.getElementById('piano'))
+React.render(<Piano pianoKeys={pianoKeys} />, document.body)
