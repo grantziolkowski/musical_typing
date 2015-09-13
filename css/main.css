@@ -7,7 +7,8 @@ html, body {
 body {
     overflow-y: hidden;
     padding-top: 20px;
-    width: 100%;
+    width: 720px;
+     text-align: center;
 }
 
 h1 {
@@ -37,7 +38,6 @@ nav.right {
     position: absolute;
     text-align: center;
     top: 350px;
-    width: 720px;
     padding: 10px 10px 13px;
     display: block;
 }
@@ -161,6 +161,10 @@ div.flats :nth-child(5) {
     margin: 382px 1px 0 0;
 }
 
+.keyname {
+  display:none;
+}
+
 .white .keyname {
   color: #ff9000;
   text-shadow: 2px 2px 0 #7E6D1F;
@@ -196,7 +200,7 @@ div.black div.kbkeyname {
   color: #fff;
 }
 
-#pianoStrings {
+.audio {
   position: fixed;
   bottom: 10px;
   left: 20px;

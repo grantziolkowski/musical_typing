@@ -48,15 +48,15 @@ var Piano = React.createClass({
     var bkeys=[];
     this.props.pianoKeys.forEach(function(pianoKey, index){
       if (pianoKey.color == "black") {
-        bkeys.push(<Key note={pianoKey.note} color={pianoKey.color} keyboard={pianoKey.keyboard} onPlay={this.toggle}/>)
+        bkeys.push(<Key note={pianoKey.note} color={pianoKey.color} keyboard={pianoKey.keyboard} />)
       } else {
-        wkeys.push(<Key note={pianoKey.note} color={pianoKey.color} keyboard={pianoKey.keyboard} onPlay={this.toggle}/>)
+        wkeys.push(<Key note={pianoKey.note} color={pianoKey.color} keyboard={pianoKey.keyboard}/>)
       }
     });
     return (
       <div>
       <div id="typedText">
-        {this.state.typedText}
+        <h2>{this.state.typedText}</h2>
       </div>
       <div id="piano">
          <div id="pianoBody">
@@ -89,6 +89,7 @@ var Key = React.createClass({
         </div>
 
         <Audio id={this.props.note} ref="audio"/>
+
       </div>
       )
   }
@@ -99,7 +100,7 @@ var Audio = React.createClass({
     var linkOgg = "http://pianosounds.pixelass.com/tones/grand-piano/2" + this.props.id + ".ogg";
     var linkMp3 = "http://pianosounds.pixelass.com/tones/grand-piano/2" + this.props.id + ".mp3";
     return (
-      <audio id={this.props.id} preload="auto" controls>
+      <audio id={this.props.id} preload="auto" className="audio" controls>
         <source src={linkOgg} type="audio/ogg"></source>
         <source src={linkMp3} type="audio/mpeg"></source>
       </audio>
@@ -107,4 +108,4 @@ var Audio = React.createClass({
   }
 })
 
-React.render(<Piano pianoKeys={pianoKeys} />, document.body)
+React.render(<Piano pianoKeys={pianoKeys} />, document.getElementById('container'))
