@@ -2,16 +2,16 @@
 
 var pianoKeys = [
   {color: "white", keyboard: "a", note: "C"},
-  {color: "black", keyboard: "w", note: "Cs"},
+  {color: "black", keyboard: "w", note: "Cs", noteName: "C#"},
   {color: "white", keyboard: "s", note: "D"},
-  {color: "black", keyboard: "e", note: "Ds"},
+  {color: "black", keyboard: "e", note: "Ds", noteName: "Eb"},
   {color: "white", keyboard: "d", note: "E"},
   {color: "white", keyboard: "f", note: "F"},
-  {color: "black", keyboard: "t", note: "Fs"},
+  {color: "black", keyboard: "t", note: "Fs", noteName: "F#"},
   {color: "white", keyboard: "j", note: "G"},
-  {color: "black", keyboard: "i", note: "Gs"},
+  {color: "black", keyboard: "i", note: "Gs", noteName: "Ab"},
   {color: "white", keyboard: "k", note: "A"},
-  {color: "black", keyboard: "o", note: "As"},
+  {color: "black", keyboard: "o", note: "As", noteName: "Bb"},
   {color: "white", keyboard: "l", note: "B"},
   {color: "white", keyboard: ";", note: "C"}
 ];
@@ -28,17 +28,17 @@ var Piano = React.createClass({
   componentDidMount: function () {
     this.props.pianoKeys.forEach(function(pianoKey){
       var keyEvent = pianoKey.keyboard
-      var note = pianoKey.note;
       var self = this
       this.bindShortcut(keyEvent, function() {
-        self.toggle(note)
+        self.toggle(pianoKey)
         })
     }, this)
   },
-  toggle: function(note) {
+  toggle: function(pianoKey) {
+    var noteName = pianoKey.noteName || pianoKey.note
     this.setState({
-      typedText: this.state.typedText + ' ' + note,
-      audioCurrent: document.getElementById(note),
+      typedText: this.state.typedText + ' ' + noteName,
+      audioCurrent: document.getElementById(pianoKey.note),
       isPlaying: !this.state.isPlaying
     })
     this.state.audioCurrent.play()
