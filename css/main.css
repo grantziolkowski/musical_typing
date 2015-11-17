@@ -1,21 +1,35 @@
-html, body {
+html {
   height: 100%;
   font-family: Philosopher, Tahoma;
   background-color: #F2F2F2;
 }
 
 body {
-    overflow-y: hidden;
-    padding-top: 20px;
-    width: 720px;
-     text-align: center;
+    text-align: center;
 }
 
-h1 {
-  font-size: 40px;
+header {
+  font-size: 2em;
 }
 
-a {text-decoration: none; color: #000; cursor: pointer;}
+
+#container {
+  position: relative;
+  width: 66%;
+  margin: auto;
+}
+
+#typedText {
+  margin-top: -40px;
+  font-size: 2em;
+}
+
+a {
+  text-decoration: none;
+  color: #000;
+  cursor: pointer;
+}
+
 a:hover {color: #9C0413;}
 
 nav.left {
@@ -34,10 +48,9 @@ nav.right {
     color: #000000;
     margin-left:  20px;
     margin-right: 20px;
-    margin-top: -200px;
     position: absolute;
     text-align: center;
-    top: 350px;
+    top: 125px;
     padding: 10px 10px 13px;
     display: block;
 }
@@ -45,7 +58,7 @@ nav.right {
 #pianoBody {
   width: 100%;
   position: relative;
-  float: left;
+  margin: auto;
   display: block;
 }
 
